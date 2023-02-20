@@ -364,6 +364,7 @@
 "Assets/scripts/PlacedObject_Done.cs"
 "Assets/scripts/SaveLoadSystem.cs"
 "Assets/scripts/SceneChanger.cs"
+"Assets/scripts/Testing.cs"
 "Assets/scripts/UtilsClass.cs"
 "Assets/TextMesh Pro/Examples & Extras/Scripts/Benchmark01.cs"
 "Assets/TextMesh Pro/Examples & Extras/Scripts/Benchmark01_UGUI.cs"
