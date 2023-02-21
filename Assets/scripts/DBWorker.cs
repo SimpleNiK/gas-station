@@ -1,10 +1,13 @@
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using EntityClasses;
 
 public class DBWorker : MonoBehaviour
 {
+    // поменял чтоб закомитить
     public Button addButton;
     public Button changeButton;
     public Button deleteButton;
@@ -25,6 +28,16 @@ public class DBWorker : MonoBehaviour
     public TMP_InputField fuelName;
     public TMP_InputField fuelPrice;
     public List<string> fuelTypeList = new List<string> { "АИ-92", "АИ-95" };
+
+    
+
+    public List<EntityInterface> fuelDB = new List<EntityInterface>();
+    public List<EntityInterface> carDB = new List<EntityInterface>();
+    public List<EntityInterface> fuelTanksDB = new List<EntityInterface>();
+    public List<EntityInterface> fuelDispenserDB = new List<EntityInterface>();
+    //public List<Fuel> fuelDB = new List<Fuel>();
+    //public List<Fuel> fuelDB = new List<Fuel>();
+
 
     string stringtochange;
     bool toChange { set; get; }
@@ -153,11 +166,30 @@ public class DBWorker : MonoBehaviour
             prefab.GetComponentsInChildren<LayoutElement>()[0].GetComponentInChildren<TextMeshProUGUI>().text = fuelName.text;
             prefab.GetComponentsInChildren<TextMeshProUGUI>()[2].text = fuelPrice.text + " руб.";
         } else {
-            var copy = Instantiate(prefab, content.transform);
-            copy.GetComponentsInChildren<LayoutElement>()[0].GetComponentInChildren<TextMeshProUGUI>().text = fuelName.text;
-            copy.GetComponentsInChildren<TextMeshProUGUI>()[2].text = fuelPrice.text + " руб.";
+            var copy = Instantiate(prefab, content.transform); // создаёт копию префаба (оригинал, позиция для нового объекта)
+            copy.GetComponentsInChildren<LayoutElement>()[0].GetComponentInChildren<TextMeshProUGUI>().text = fuelName.text; // получить лейуты, из которых получить текстМешПро и из него текст и присвоить ему текст
+            copy.GetComponentsInChildren<TextMeshProUGUI>()[2].text = fuelPrice.text + " руб."; //
+            Fuel newFuel = new Fuel(fuelName.text, Convert.ToInt32(fuelPrice.text));
+            fuelDB.Add(newFuel);
             fuelTypeList.Add(fuelName.text);
             setLinks(copy);
+
+            // тестирую замену в списке
+            //{
+            //    Fuel f1 = new Fuel("1", 1);
+            //    Fuel f2 = new Fuel("2", 2);
+            //    Fuel f3 = new Fuel("3", 3);
+
+            //    DBInterface.Add(f1, fuelDB);
+            //    DBInterface.Add(f2, fuelDB);
+            //    DBInterface.Add(f3, fuelDB);
+
+            //    Fuel f4 = new Fuel("4", 4);
+            //    DBInterface.Change(f2, f4, fuelDB);
+
+            //    DBInterface.Delete(f3, fuelDB);
+            //}
+
         }
         
         
