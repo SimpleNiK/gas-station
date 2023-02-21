@@ -1,13 +1,17 @@
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+
 using System.Collections;
 using System.Data;
 using UnityEngine;
 
+
 public class DBWorker : MonoBehaviour
 {
+    // ïîìåíÿë ÷òîá çàêîìèòèòü
     public Button addButton;
     public Button changeButton;
     public Button deleteButton;
@@ -27,7 +31,17 @@ public class DBWorker : MonoBehaviour
     public TMP_Dropdown carFuelType;
     public TMP_InputField fuelName;
     public TMP_InputField fuelPrice;
-    public List<string> fuelTypeList;//= new List<string> { "АИ-92", "АИ-95" };
+    public List<string> fuelTypeList;//= new List<string> { "ÐÐ-92", "ÐÐ-95" };
+
+    
+
+    public List<EntityInterface> fuelDB = new List<EntityInterface>();
+    public List<EntityInterface> carDB = new List<EntityInterface>();
+    public List<EntityInterface> fuelTanksDB = new List<EntityInterface>();
+    public List<EntityInterface> fuelDispenserDB = new List<EntityInterface>();
+    //public List<Fuel> fuelDB = new List<Fuel>();
+    //public List<Fuel> fuelDB = new List<Fuel>();
+
 
     string stringtochange;
     bool toChange { set; get; }
@@ -43,7 +57,7 @@ public class DBWorker : MonoBehaviour
     }
     private void Start()
     {
-        // Получаем отсортированную таблицу лидеров
+        // ÐÐ¾Ð»ÑÑÐ°ÐµÐ¼ Ð¾ÑÑÐ¾ÑÑÐ¸ÑÐ¾Ð²Ð°Ð½Ð½ÑÑ ÑÐ°Ð±Ð»Ð¸ÑÑ Ð»Ð¸Ð´ÐµÑÐ¾Ð²
         DataTable ftypeTable = DBManager.GetTable("SELECT * FROM Ftype;");
         
 
@@ -61,9 +75,9 @@ public class DBWorker : MonoBehaviour
 
 
 
-        // Получаем id лучшего игрока
+        // ÐÐ¾Ð»ÑÑÐ°ÐµÐ¼ id Ð»ÑÑÑÐµÐ³Ð¾ Ð¸Ð³ÑÐ¾ÐºÐ°
         //int idBestPlayer = int.Parse(scoreboard.Rows[0][1].ToString());
-        // Получаем ник лучшего игрока
+        // ÐÐ¾Ð»ÑÑÐ°ÐµÐ¼ Ð½Ð¸Ðº Ð»ÑÑÑÐµÐ³Ð¾ Ð¸Ð³ÑÐ¾ÐºÐ°
         //string nickname = MyDataBase.ExecuteQueryWithAnswer($"SELECT nickname FROM Player WHERE id_player = {idBestPlayer};");
         
         //Debug.Log(scoreboard.Rows[0][2].ToString());
@@ -74,19 +88,19 @@ public class DBWorker : MonoBehaviour
     }
     public void changeAddButton(string item) {
         Debug.Log(item);
-        addButton.GetComponentInChildren<TextMeshProUGUI>().text = "Добавить " + item; 
+        addButton.GetComponentInChildren<TextMeshProUGUI>().text = "ÐÐ¾Ð±Ð°Ð²Ð¸ÑÑ " + item; 
     }
     public void deleteComponent()
     {
         Destroy(prefab);
-        changeButton.GetComponentInChildren<TextMeshProUGUI>().text = "Изменить";
-        deleteButton.GetComponentInChildren<TextMeshProUGUI>().text = "Удалить";
-        addButton.GetComponentInChildren<TextMeshProUGUI>().text = "Добавить";
+        changeButton.GetComponentInChildren<TextMeshProUGUI>().text = "ÐÐ·Ð¼ÐµÐ½Ð¸ÑÑ";
+        deleteButton.GetComponentInChildren<TextMeshProUGUI>().text = "Ð£Ð´Ð°Ð»Ð¸ÑÑ";
+        addButton.GetComponentInChildren<TextMeshProUGUI>().text = "ÐÐ¾Ð±Ð°Ð²Ð¸ÑÑ";
     }
     public void changeChangeButton(TextMeshProUGUI item)
     {
-        changeButton.GetComponentInChildren<TextMeshProUGUI>().text = "Изменить " + item.text;        
-        deleteButton.GetComponentInChildren<TextMeshProUGUI>().text = "Удалить " + item.text;        
+        changeButton.GetComponentInChildren<TextMeshProUGUI>().text = "ÐÐ·Ð¼ÐµÐ½Ð¸ÑÑ " + item.text;        
+        deleteButton.GetComponentInChildren<TextMeshProUGUI>().text = "Ð£Ð´Ð°Ð»Ð¸ÑÑ " + item.text;        
     }
     public void setDropDown() {
         fuelType.ClearOptions();
@@ -99,16 +113,16 @@ public class DBWorker : MonoBehaviour
     {
         string type = addButton.GetComponentInChildren<TextMeshProUGUI>().text.Split(" ")[1];
         switch (type){
-            case "ТБ":
+            case "Ð¢Ð":
                 AddFT.SetActive(true);
                 break;
-            case "ТРК":
+            case "Ð¢Ð Ð":
                 AddFD.SetActive(true);
                 break;
-            case "тип":
+            case "ÑÐ¸Ð¿":
                 AddFuel.SetActive(true);
                 break;
-            case "автомобиль":
+            case "Ð°Ð²ÑÐ¾Ð¼Ð¾Ð±Ð¸Ð»Ñ":
                 AddCar.SetActive(true);
                 break;
         }
@@ -119,24 +133,24 @@ public class DBWorker : MonoBehaviour
         string type = addButton.GetComponentInChildren<TextMeshProUGUI>().text.Split(" ")[1];
         switch (type)
         {
-            case "ТБ":
+            case "Ð¢Ð":
                 AddFT.SetActive(true);
                 FTName.text = prefab.GetComponentsInChildren<LayoutElement>()[0].GetComponentInChildren<TextMeshProUGUI>().text;
                 FTVolume.text = prefab.GetComponentsInChildren<TextMeshProUGUI>()[3].text.Split(" ")[0];
                 fuelType.value = fuelTypeList.IndexOf((prefab.GetComponentsInChildren<TextMeshProUGUI>()[4].text));
                 break;          
-            case "ТРК":
+            case "Ð¢Ð Ð":
                 AddFD.SetActive(true);
                 FDName.text = prefab.GetComponentsInChildren<LayoutElement>()[0].GetComponentInChildren<TextMeshProUGUI>().text;
                 FDSpeed.text = prefab.GetComponentsInChildren<TextMeshProUGUI>()[2].text.Split(" ")[0];
                 break;
-            case "тип":
+            case "ÑÐ¸Ð¿":
                 AddFuel.SetActive(true);
                 fuelName.text = prefab.GetComponentsInChildren<LayoutElement>()[0].GetComponentInChildren<TextMeshProUGUI>().text;
                 stringtochange = fuelName.text;
                 fuelPrice.text = prefab.GetComponentsInChildren<TextMeshProUGUI>()[2].text.Split(" ")[0];
                 break;
-            case "автомобиль":
+            case "Ð°Ð²ÑÐ¾Ð¼Ð¾Ð±Ð¸Ð»Ñ":
                 AddCar.SetActive(true);
                 carName.text = prefab.GetComponentsInChildren<LayoutElement>()[0].GetComponentInChildren<TextMeshProUGUI>().text;
                 carVolume.text = prefab.GetComponentsInChildren<TextMeshProUGUI>()[3].text.Split(" ")[0];
@@ -148,12 +162,12 @@ public class DBWorker : MonoBehaviour
     {
         if (toChange) {
             prefab.GetComponentsInChildren<LayoutElement>()[0].GetComponentInChildren<TextMeshProUGUI>().text = FTName.text;
-            prefab.GetComponentsInChildren<TextMeshProUGUI>()[3].text = FTVolume.text + " Л";
+            prefab.GetComponentsInChildren<TextMeshProUGUI>()[3].text = FTVolume.text + " Ð";
             prefab.GetComponentsInChildren<TextMeshProUGUI>()[4].text = fuelTypeList[fuelType.value];
         } else {
             var copy = Instantiate(prefab, content.transform);
             copy.GetComponentsInChildren<LayoutElement>()[0].GetComponentInChildren<TextMeshProUGUI>().text = FTName.text;
-            copy.GetComponentsInChildren<TextMeshProUGUI>()[3].text = FTVolume.text + " Л";
+            copy.GetComponentsInChildren<TextMeshProUGUI>()[3].text = FTVolume.text + " Ð";
             copy.GetComponentsInChildren<TextMeshProUGUI>()[4].text = fuelTypeList[fuelType.value];
             setLinks(copy);
         }
@@ -165,11 +179,11 @@ public class DBWorker : MonoBehaviour
     {
         if (toChange) {
             prefab.GetComponentsInChildren<LayoutElement>()[0].GetComponentInChildren<TextMeshProUGUI>().text = FDName.text;
-            prefab.GetComponentsInChildren<TextMeshProUGUI>()[2].text = FDSpeed.text + " Л/С";
+            prefab.GetComponentsInChildren<TextMeshProUGUI>()[2].text = FDSpeed.text + " Ð/Ð¡";
         } else {
             var copy = Instantiate(prefab, content.transform);
             copy.GetComponentsInChildren<LayoutElement>()[0].GetComponentInChildren<TextMeshProUGUI>().text = FDName.text;
-            copy.GetComponentsInChildren<TextMeshProUGUI>()[2].text = FDSpeed.text + " Л/С";
+            copy.GetComponentsInChildren<TextMeshProUGUI>()[2].text = FDSpeed.text + " Ð/Ð¡";
             setLinks(copy);
         }
         
@@ -181,13 +195,32 @@ public class DBWorker : MonoBehaviour
         if (toChange) {
             fuelTypeList[fuelTypeList.IndexOf(stringtochange)] = fuelName.text;
             prefab.GetComponentsInChildren<LayoutElement>()[0].GetComponentInChildren<TextMeshProUGUI>().text = fuelName.text;
-            prefab.GetComponentsInChildren<TextMeshProUGUI>()[2].text = fuelPrice.text + " руб.";
+            prefab.GetComponentsInChildren<TextMeshProUGUI>()[2].text = fuelPrice.text + " ÑÑÐ±.";
         } else {
+
             var copy = Instantiate(prefab, content.transform);
             copy.GetComponentsInChildren<LayoutElement>()[0].GetComponentInChildren<TextMeshProUGUI>().text = fuelName.text;
-            copy.GetComponentsInChildren<TextMeshProUGUI>()[2].text = fuelPrice.text + " руб.";
+            copy.GetComponentsInChildren<TextMeshProUGUI>()[2].text = fuelPrice.text + " ÑÑÐ±.";
+
             fuelTypeList.Add(fuelName.text);
             setLinks(copy);
+
+            // òåñòèðóþ çàìåíó â ñïèñêå
+            //{
+            //    Fuel f1 = new Fuel("1", 1);
+            //    Fuel f2 = new Fuel("2", 2);
+            //    Fuel f3 = new Fuel("3", 3);
+
+            //    DBInterface.Add(f1, fuelDB);
+            //    DBInterface.Add(f2, fuelDB);
+            //    DBInterface.Add(f3, fuelDB);
+
+            //    Fuel f4 = new Fuel("4", 4);
+            //    DBInterface.Change(f2, f4, fuelDB);
+
+            //    DBInterface.Delete(f3, fuelDB);
+            //}
+
         }
         
         
@@ -199,12 +232,12 @@ public class DBWorker : MonoBehaviour
     {
         if (toChange) {
             prefab.GetComponentsInChildren<LayoutElement>()[0].GetComponentInChildren<TextMeshProUGUI>().text = carName.text;
-            prefab.GetComponentsInChildren<TextMeshProUGUI>()[3].text = carVolume.text + " Л";
+            prefab.GetComponentsInChildren<TextMeshProUGUI>()[3].text = carVolume.text + " Ð";
             prefab.GetComponentsInChildren<TextMeshProUGUI>()[4].text = fuelTypeList[carFuelType.value];
         } else {
             var copy = Instantiate(prefab, content.transform);
             copy.GetComponentsInChildren<LayoutElement>()[0].GetComponentInChildren<TextMeshProUGUI>().text = carName.text;
-            copy.GetComponentsInChildren<TextMeshProUGUI>()[3].text = carVolume.text + " Л";
+            copy.GetComponentsInChildren<TextMeshProUGUI>()[3].text = carVolume.text + " Ð";
             copy.GetComponentsInChildren<TextMeshProUGUI>()[4].text = fuelTypeList[carFuelType.value];
             setLinks(copy);
         }
