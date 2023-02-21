@@ -31,7 +31,14 @@ public class GridBuildingSystem3D : MonoBehaviour {
 
         placedObjectTypeSO = placedObjectTypeSOList[0];
     }
-    
+    public void SetPO(int code){
+        if (code==0) { placedObjectTypeSO = placedObjectTypeSOList[0]; RefreshSelectedObjectType(); }
+       if (code==1) { placedObjectTypeSO = placedObjectTypeSOList[1]; RefreshSelectedObjectType(); }
+       if (code==2) { placedObjectTypeSO = placedObjectTypeSOList[2]; RefreshSelectedObjectType(); }
+       if (code==3) { placedObjectTypeSO = placedObjectTypeSOList[3]; RefreshSelectedObjectType(); }
+       if (code==4) { placedObjectTypeSO = placedObjectTypeSOList[4]; RefreshSelectedObjectType(); }
+       if (code==5) { placedObjectTypeSO = placedObjectTypeSOList[5]; RefreshSelectedObjectType(); }
+    }
     public class GridObject {
 
         private GridXZ<GridObject> grid;
