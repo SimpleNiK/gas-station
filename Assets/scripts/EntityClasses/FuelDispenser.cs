@@ -7,7 +7,7 @@ namespace EntityClasses
 {
     public class FuelDispenser : EntityInterface
     {
-        int dispensingSpeed;
+        double dispensingSpeed;
 
         public void Add(List<EntityInterface> list)
         {

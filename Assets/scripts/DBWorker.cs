@@ -11,8 +11,7 @@ using UnityEngine;
 
 public class DBWorker : MonoBehaviour
 {
-    // ������� ���� �����������
-
+    // ïîìåíÿë ÷òîá çàêîìèòèòü
     public Button addButton;
     public Button changeButton;
     public Button deleteButton;
@@ -40,6 +39,8 @@ public class DBWorker : MonoBehaviour
     public List<EntityInterface> carDB = new List<EntityInterface>();
     public List<EntityInterface> fuelTanksDB = new List<EntityInterface>();
     public List<EntityInterface> fuelDispenserDB = new List<EntityInterface>();
+    //public List<Fuel> fuelDB = new List<Fuel>();
+    //public List<Fuel> fuelDB = new List<Fuel>();
 
 
     string stringtochange;
@@ -168,10 +169,6 @@ public class DBWorker : MonoBehaviour
             copy.GetComponentsInChildren<LayoutElement>()[0].GetComponentInChildren<TextMeshProUGUI>().text = FTName.text;
             copy.GetComponentsInChildren<TextMeshProUGUI>()[3].text = FTVolume.text + " Ð";
             copy.GetComponentsInChildren<TextMeshProUGUI>()[4].text = fuelTypeList[fuelType.value];
-
-            FuelTank newFuelTank = new FuelTank(Convert.ToInt32(FTVolume.text), fuelTypeList[fuelType.value]);
-            fuelTanksDB.Add(newFuelTank);
-
             setLinks(copy);
         }
         
@@ -186,12 +183,7 @@ public class DBWorker : MonoBehaviour
         } else {
             var copy = Instantiate(prefab, content.transform);
             copy.GetComponentsInChildren<LayoutElement>()[0].GetComponentInChildren<TextMeshProUGUI>().text = FDName.text;
-
-            copy.GetComponentsInChildren<TextMeshProUGUI>()[2].text = FDSpeed.text + " �/�";
-
-            FuelDispenser newFuelDispenser = new FuelDispenser();
-            fuelDispenserDB.Add(newFuelDispenser);
-
+            copy.GetComponentsInChildren<TextMeshProUGUI>()[2].text = FDSpeed.text + " Ð/Ð¡";
             setLinks(copy);
         }
         
@@ -206,14 +198,11 @@ public class DBWorker : MonoBehaviour
             prefab.GetComponentsInChildren<TextMeshProUGUI>()[2].text = fuelPrice.text + " ÑÑÐ±.";
         } else {
 
-            var copy = Instantiate(prefab, content.transform); // ������ ����� ������� (��������, ������� ��� ������ �������)
-            copy.GetComponentsInChildren<LayoutElement>()[0].GetComponentInChildren<TextMeshProUGUI>().text = fuelName.text; // �������� ������, �� ������� �������� ����������� � �� ���� ����� � ��������� ��� �����
-            copy.GetComponentsInChildren<TextMeshProUGUI>()[2].text = fuelPrice.text + " ���.";
+            var copy = Instantiate(prefab, content.transform);
+            copy.GetComponentsInChildren<LayoutElement>()[0].GetComponentInChildren<TextMeshProUGUI>().text = fuelName.text;
+            copy.GetComponentsInChildren<TextMeshProUGUI>()[2].text = fuelPrice.text + " ÑÑÐ±.";
+
             fuelTypeList.Add(fuelName.text);
-
-            Fuel newFuel = new Fuel(fuelName.text, Convert.ToInt32(fuelPrice.text));
-            fuelDB.Add(newFuel);
-
             setLinks(copy);
 
             // òåñòèðóþ çàìåíó â ñïèñêå
@@ -250,10 +239,6 @@ public class DBWorker : MonoBehaviour
             copy.GetComponentsInChildren<LayoutElement>()[0].GetComponentInChildren<TextMeshProUGUI>().text = carName.text;
             copy.GetComponentsInChildren<TextMeshProUGUI>()[3].text = carVolume.text + " Ð";
             copy.GetComponentsInChildren<TextMeshProUGUI>()[4].text = fuelTypeList[carFuelType.value];
-
-            Car newCar = new Car(Convert.ToInt32(carVolume.text), fuelTypeList[carFuelType.value]);
-            carDB.Add(newCar);
-
             setLinks(copy);
         }
         

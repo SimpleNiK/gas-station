@@ -15,9 +15,7 @@ public class GridBuildingSystem3D : MonoBehaviour {
     
 
     private GridXZ<GridObject> grid;
-    //private GridXZ<GridObject> gridService;
-    //private GridXZ<GridObject> gridroad;
-    [SerializeField] private List<PlacedObjectTypeSO> placedObjectTypeSOList = null; // сериалайз филд
+    [SerializeField] private List<PlacedObjectTypeSO> placedObjectTypeSOList = null;
     private PlacedObjectTypeSO placedObjectTypeSO;
     private PlacedObjectTypeSO.Dir dir;
 
@@ -46,7 +44,6 @@ public class GridBuildingSystem3D : MonoBehaviour {
         private int y;
         public PlacedObject_Done placedObject;
 
-        // одна ячейка с хранением, есть ли здание и координаты
         public GridObject(GridXZ<GridObject> grid, int x, int y) {
             this.grid = grid;
             this.x = x;
@@ -78,9 +75,7 @@ public class GridBuildingSystem3D : MonoBehaviour {
         
     }
 
-    // проверяет ли кнопка или нет, проверяет координаты нажатой ячейки, делает их читаемыми, ставит объект на ячейку
     private void Update() {
-        // добавить if на положение мышки вне сетки
         if (Input.GetMouseButtonDown(0) && placedObjectTypeSO != null && !IsMouseOverUI()) {
             Vector3 mousePosition = Mouse3D.GetMouseWorldPosition();
             grid.GetXZ(mousePosition, out int x, out int z);
@@ -131,7 +126,7 @@ public class GridBuildingSystem3D : MonoBehaviour {
    
        if (Input.GetKeyDown(KeyCode.Alpha0)) { DeselectObjectType(); }
    
-        // удаление объекта правой кнопкой мыши
+   
        if (Input.GetMouseButtonDown(1)) {
            Vector3 mousePosition = Mouse3D.GetMouseWorldPosition();
            if (grid.GetGridObject(mousePosition) != null) {
