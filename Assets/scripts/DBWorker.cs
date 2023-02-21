@@ -7,7 +7,7 @@ using EntityClasses;
 
 public class DBWorker : MonoBehaviour
 {
-    // поменял чтоб закомитить
+    // поменял чтоб закомититьь
     public Button addButton;
     public Button changeButton;
     public Button deleteButton;
