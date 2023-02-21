@@ -8,7 +8,14 @@ namespace EntityClasses
     public class Car : EntityInterface
     {
         int fuelTankVolume;
+        string fuelName;
         FuelType fuelType;
+
+        public Car(int fuelTankVolume, string fuelName)
+        {
+            this.fuelTankVolume = fuelTankVolume;
+            this.fuelName = fuelName;
+        }
 
         public void Add(List<EntityInterface> list)
         {

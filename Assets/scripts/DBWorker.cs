@@ -35,8 +35,6 @@ public class DBWorker : MonoBehaviour
     public List<EntityInterface> carDB = new List<EntityInterface>();
     public List<EntityInterface> fuelTanksDB = new List<EntityInterface>();
     public List<EntityInterface> fuelDispenserDB = new List<EntityInterface>();
-    //public List<Fuel> fuelDB = new List<Fuel>();
-    //public List<Fuel> fuelDB = new List<Fuel>();
 
 
     string stringtochange;
@@ -138,6 +136,10 @@ public class DBWorker : MonoBehaviour
             copy.GetComponentsInChildren<LayoutElement>()[0].GetComponentInChildren<TextMeshProUGUI>().text = FTName.text;
             copy.GetComponentsInChildren<TextMeshProUGUI>()[3].text = FTVolume.text + " Л";
             copy.GetComponentsInChildren<TextMeshProUGUI>()[4].text = fuelTypeList[fuelType.value];
+
+            FuelTank newFuelTank = new FuelTank(Convert.ToInt32(FTVolume.text), fuelTypeList[fuelType.value]);
+            fuelTanksDB.Add(newFuelTank);
+
             setLinks(copy);
         }
         
@@ -153,6 +155,10 @@ public class DBWorker : MonoBehaviour
             var copy = Instantiate(prefab, content.transform);
             copy.GetComponentsInChildren<LayoutElement>()[0].GetComponentInChildren<TextMeshProUGUI>().text = FDName.text;
             copy.GetComponentsInChildren<TextMeshProUGUI>()[2].text = FDSpeed.text + " Л/с";
+
+            FuelDispenser newFuelDispenser = new FuelDispenser();
+            fuelDispenserDB.Add(newFuelDispenser);
+
             setLinks(copy);
         }
         
@@ -168,10 +174,12 @@ public class DBWorker : MonoBehaviour
         } else {
             var copy = Instantiate(prefab, content.transform); // создаёт копию префаба (оригинал, позиция для нового объекта)
             copy.GetComponentsInChildren<LayoutElement>()[0].GetComponentInChildren<TextMeshProUGUI>().text = fuelName.text; // получить лейуты, из которых получить текстМешПро и из него текст и присвоить ему текст
-            copy.GetComponentsInChildren<TextMeshProUGUI>()[2].text = fuelPrice.text + " руб."; //
+            copy.GetComponentsInChildren<TextMeshProUGUI>()[2].text = fuelPrice.text + " руб.";
+            fuelTypeList.Add(fuelName.text);
+
             Fuel newFuel = new Fuel(fuelName.text, Convert.ToInt32(fuelPrice.text));
             fuelDB.Add(newFuel);
-            fuelTypeList.Add(fuelName.text);
+
             setLinks(copy);
 
             // тестирую замену в списке
@@ -208,6 +216,10 @@ public class DBWorker : MonoBehaviour
             copy.GetComponentsInChildren<LayoutElement>()[0].GetComponentInChildren<TextMeshProUGUI>().text = carName.text;
             copy.GetComponentsInChildren<TextMeshProUGUI>()[3].text = carVolume.text + " Л";
             copy.GetComponentsInChildren<TextMeshProUGUI>()[4].text = fuelTypeList[carFuelType.value];
+
+            Car newCar = new Car(Convert.ToInt32(carVolume.text), fuelTypeList[carFuelType.value]);
+            carDB.Add(newCar);
+
             setLinks(copy);
         }
         
