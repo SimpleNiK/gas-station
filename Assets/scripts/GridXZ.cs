@@ -1,14 +1,4 @@
-﻿/* 
-    ------------------- Code Monkey -------------------
-
-    Thank you for downloading this package
-    I hope you find it useful in your projects
-    If you have any questions let me know
-    Cheers!
-
-               unitycodemonkey.com
-    --------------------------------------------------
- */
+﻿
 
 using System;
 using System.Collections;
@@ -55,8 +45,8 @@ public class GridXZ<TGridObject> {
                     Debug.DrawLine(GetWorldPosition(x, z) - new Vector3(cellSize / 2, 0, cellSize / 2), GetWorldPosition(x + 1, z) - new Vector3(cellSize / 2, 0, cellSize / 2), Color.white, 100f);
                 }
             }
-            Debug.DrawLine(GetWorldPosition(0, height), GetWorldPosition(width, height), Color.white, 100f);
-            Debug.DrawLine(GetWorldPosition(width, 0), GetWorldPosition(width, height), Color.white, 100f);
+            Debug.DrawLine(GetWorldPosition(0, height) - new Vector3(cellSize / 2, 0, cellSize / 2), GetWorldPosition(width, height) - new Vector3(cellSize / 2, 0, cellSize / 2), Color.white, 100f);
+            Debug.DrawLine(GetWorldPosition(width, 0) - new Vector3(cellSize / 2, 0, cellSize / 2), GetWorldPosition(width, height) - new Vector3(cellSize / 2, 0, cellSize / 2), Color.white, 100f);
 
             OnGridObjectChanged += (object sender, OnGridObjectChangedEventArgs eventArgs) => {
                 debugTextArray[eventArgs.x, eventArgs.z].text = gridArray[eventArgs.x, eventArgs.z]?.ToString();
